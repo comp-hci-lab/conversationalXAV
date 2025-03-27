@@ -1,0 +1,81 @@
+<script language="JavaScript">
+    var currentLayer = 'page1';
+    function showLayer(lyr){
+            hideLayer(currentLayer);
+            document.getElementById(lyr).style.visibility = 'visible';
+            currentLayer = lyr;
+            history.scrollRestoration = "manual";
+    
+            $(window).scrollTop(0);
+    }
+    
+    function hideLayer(lyr){
+            document.getElementById(lyr).style.visibility = 'hidden';
+    }
+    
+    </script>
+    </head>
+    
+    <body>
+      <div id='header'>
+        <p>Scatola</p>
+      </div>
+      <div class="container" id='formBody'>
+    
+        <div id="page1" class="page" style="visibility:visible;">
+          <h1> INSTRUCTIONS</h1>
+          <h3>You’re now being presented with a series of rating scales.</h3>
+          <h4>For each of the six scales, evaluate the task you recently performed by moving the slider bars to the location that matches your experience.$
+          <h4>Consider your responses carefully in distinguishing among the different task conditions, and consider each scale individually.</h4>
+    
+          <ol>
+          <h3>MENTAL DEMAND</h3>
+          <div class="row">
+            <li> How much mental and perceptual activity was required (e.g., thinking, deciding, calculating, remembering, looking, searching, etc.)?</br >
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="mentalDemand-1">
+            <label>High</label></li>
+          </div>
+          <h3>PHYSICAL DEMAND</h3>
+          <div class="row">
+            <li> How much physical activity was required (e.g., pushing, pulling, turning, controlling, activating, etc.)?</br >
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="physicalDemand-1">
+            <label>High</label></li>
+         </div>
+         <h3>TEMPORAL DEMAND</h3>
+            <div class="row">
+                <li> How much time pressure did you feel due to the rate or pace at which the tasks or task elements occured?</br >
+                <label style="margin-left: 20px;"> Low</label>
+                <input type="range" min="1" max="21" value="1" class="slider" id="temporalDemand-1">
+                <label>High</label></li>
+            </div>
+          <h3>EFFORT</h3>
+            <div class="row">
+                <li> How hard did you have to work (mentally and physically) to accomplish your level of performance?</br >
+                <label style="margin-left: 20px;"> Low</label>
+                <input type="range" min="1" max="21" value="1" class="slider" id="effort">
+                <label>High</label></li>
+            </div>
+          <h3>PERFORMANCE</h3>
+            <div class="row">
+                <li> How successful do you think you were in accomplishing the goals of the task set by the experimenter (or yourself)?</br >
+                <label style="margin-left: 20px;">Good</label>
+                <input type="range" min="1" max="21" value="1" class="slider" id="performance-1">
+                <label>Poor</label></li>
+            </div>
+          <h3>FRUSTRATION</h3>
+            <div class="row">
+                <br><li> How insecure, discouraged, irritated, stressed, and annoyed were you during the task?</br >
+                <label style="margin-left: 20px;"> Low</label>
+                <input type="range" min="1" max="21" value="1" class="slider" id="frustration-1">
+                <label>High</label></li>
+            </div>
+            </ol>
+            <input type="button" class="btn btn-success gap-md-top" value="Continue" onClick="showLayer('page2')"></button>
+        </div>
+        <div id="page2" class="page">
+        </div>
+    </div>
+
+    

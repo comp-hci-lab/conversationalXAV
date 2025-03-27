@@ -1,0 +1,442 @@
+<!--<!DOCTYPE html>-->
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Explainable Autonomous Vehicle</title>
+    <!-- Library scripts w/ local-fallbacks -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>window.jQuery || document.write("<script src='js/libs/jquery.min.js'>\x3C/script>");</script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.js"></script>-->
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script>window.Vue || document.write("<script src='js/libs/vue.js'>\x3C/script>");</script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    
+    
+    
+    <link href='css/style.css' rel='stylesheet'></link>
+    
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <!-- Project scripts -->
+    <script src='js/libs/gup.js'></script>
+    <script src='js/shared.js'></script>
+    <script src='js/pageWizard.js'></script>
+    
+  
+    
+    <!-- Style sheets-->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <!-- Additional Bootstrap-->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</script>
+<!--<script type="text/javascript">
+
+  // Get WebSocket
+  //var socket = io();
+  var socket = io.connect('http://localhost:3000');
+
+  // Get DOM elements
+  //var input = document.getElementById("input");
+  //var output = document.getElementById("output");
+
+  // Join a channel
+  var room = "test";
+  socket.emit("join", room);
+  let msg = "hello helloo helloooo from wizard";
+  socket.emit("new_message", msg);
+
+  socket.on("new_message", function (msg) {
+    console.log("sending message through server from wizard", msg);
+  });
+  /*
+  */
+</script>-->
+
+</head>
+
+<body>
+  <div id='header'>
+    <p>Wizard</p>
+  </div>
+  <div class="main-container-w" id='dynamicWizard'>
+    <div id='robot-container-w' class='wrapper' >
+      
+      <div>
+        <p id="eDescription" style="background-color: lightgoldenrodyellow;border: solid;">
+          Event description:
+          {{finalNarrative}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color: lightcyan;border: solid;">
+          Incident type 1:
+          {{incidentType1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          crashSeverity2:
+          {{crashSeverity2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicle1EvasiveManeuver2:
+          {{vehicle1EvasiveManeuver2}}
+        </p>
+      </div>
+       
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicle1PostManeuver2:
+          {{vehicle1PostManeuver2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicleRollover:
+          {{vehicleRollover}}
+        </p>
+      </div>
+      <!--<div>
+        <p style="background-color:lightcyan;border: solid;">
+          driverBehavior1:
+          {{driverBehavior1}}
+        </p>
+      </div>-->
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          driverBehavior2:
+          {{driverBehavior2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          driverBehavior3:
+          {{driverBehavior3}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          frontSeatPassengers:
+          {{frontSeatPassengers}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          rearSeatPassengers:
+          {{rearSeatPassengers}}
+        </p>
+      </div>
+
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicleContributingFactors:
+          {{vehicleContributingFactors}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          lighting:
+          {{lighting}}
+        </p>
+      </div>
+
+      <!--<div>
+        <p style="background-color:lightcyan;border: solid;">
+          weather:
+          {{weather}}
+        </p>
+      </div>-->
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          trafficFlow:
+          {{trafficFlow}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          contigTravelLanes:
+          {{contigTravelLanes}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          throughTravelLanes:
+          {{throughTravelLanes}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          infrastructure:
+          {{infrastructure}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicle1LaneOccupied:
+          {{vehicle1LaneOccupied}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          relationToJunction:
+          {{relationToJunction}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          alignment:
+          {{alignment}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          construction:
+          {{construction}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          numberOfOtherMotorists:
+          {{numberOfOtherMotorists}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          numberOfObjectsAnimals:
+          {{numberOfObjectsAnimals}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist2Location:
+          {{motorist2Location}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          trafficDensity:
+          {{trafficDensity}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          trafficControl:
+          {{trafficControl}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist2Type:
+          {{motorist2Type}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color: lightcyan;border: solid;">
+          Incident type 2:
+          {{incidentType2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color: lightcyan;border: solid;">
+          Maneuver judgement:
+          {{maneuverJudgment}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color: lightcyan;border: solid;">
+          Surface condition:
+          {{surfaceCondition}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color: lightcyan;border: solid;">
+          Weather condition:
+          {{weather}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          Fault:
+          {{fault}}
+        </p>
+      </div>
+      <!--<div>
+        <p style="background-color:lightcyan;border: solid;">
+          Event nature:
+          {{eventNature1}}
+        </p>
+      </div>-->
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          Airbag on:
+          {{airBag}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          Construction status:
+          {{construction}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          eventNature1:
+          {{eventNature1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          incidentType1:
+          {{incidentType1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          eventSeverity1 :
+          {{eventSeverity1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          crashSeverity1:
+          {{crashSeverity1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicle1EvasiveManeuver1:
+          {{vehicle1EvasiveManeuver1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          vehicle1PostManeuver1:
+          {{vehicle1PostManeuver1}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          eventNature2:
+          {{eventNature2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          driverBehavior3:
+          {{driverBehavior3}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          incidentType2:
+          {{incidentType2}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          eventSeverity2:
+          {{eventSeverity2}}
+        </p>
+      </div>
+
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          Driving behaviour:
+          {{driverBehavior2}}
+        </p>
+      </div>
+    </div>
+    <div id='object-container-w' class='wrapper' style="border: 2px;
+    border-color: darkblue;">
+      
+      <!--------------------------------------------------------->
+
+      
+
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist2Maneuver:
+          {{motorist2Maneuver}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist3Location:
+          {{motorist3Location}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist3Type:
+          {{motorist3Type}}
+        </p>
+      </div>
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist3Maneuver:
+          {{motorist3Maneuver}}
+        </p>
+      </div>
+
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          motorist3Reaction:
+          {{motorist3Reaction}}
+        </p>
+      </div>
+
+      <!--<div>
+        <p style="background-color:lightcyan;border: solid;">
+          numberOfObjectsAnimals:
+          {{numberOfObjectsAnimals}}
+        </p>
+      </div>-->
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          intersectionInfluence:
+          {{intersectionInfluence}}
+        </p>
+      </div>               
+                   
+      <div>
+        <p style="background-color:lightcyan;border: solid;">
+          driverBehavior1:
+          {{driverBehavior1}}
+        </p>
+      </div>
+      
+      <!--Participant is asking: --> 
+      
+      <div id="messages" class="messages">
+        <!--
+        <p style="background-color: bisque;">
+          {{userAsked}}
+        </p>
+        -->
+
+      </div>
+      
+     
+      
+      <textarea id="wizardd" placeholder="Answer the participant's question"></textarea>
+      <!--<input type='button' id='userqa' class="btn btn-success gap-md-top" value='Answer' v-on:click="communicate_with_user()" style="display: '';"></button>-->
+
+    </div>
+
+  
+  </div>
+  <script src='js/libs/vue.js'></script>
+  
+</body>
+</html>
+

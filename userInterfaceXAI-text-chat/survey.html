@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Scatola</title>
+  <!-- Library scripts w/ local-fallbacks -->
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script>window.jQuery || document.write("<script src='js/libs/jquery.min.js'>\x3C/script>");</script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.js"></script>-->
+  <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+  <script>window.Vue || document.write("<script src='js/libs/vue.js'>\x3C/script>");</script>
+  <link href='css/survey.css' rel='stylesheet'>
+  </link>
+  <!--<link href='css/spacing.css' rel='stylesheet'></link>-->
+
+  <link href='css/style.css' rel='stylesheet'>
+  </link>
+
+  <link rel="shortcut icon" href="favicon.ico" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Project scripts -->
+  <script src='js/libs/gup.js'></script>
+
+
+
+  <!-- Style sheets-->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+  <!-- Additional Bootstrap-->
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script language="JavaScript">
+    if (typeof jQuery.fn.live == 'undefined' || !(jQuery.isFunction(jQuery.fn.live))) {
+      jQuery.fn.extend({
+        live: function (event, callback) {
+          if (this.selector) {
+            jQuery(document).on(event, this.selector, callback);
+          }
+        }
+      });
+    }
+    var demands = [
+      ["md", "Mental demand"],
+      ["pd", "Physical demand"],
+      ["td", "Temporal demand"],
+      ["op", "Performance"],
+      ["ef", "Effort"],
+      ["fr", "Frustration"]
+    ];
+    var currentLayer = 'page11';
+    function showLayer(lyr) {
+      if (lyr === 'page1-2') {
+        showPage12();
+      }
+      hideLayer(currentLayer);
+      if (lyr === 'page22') {
+        hideLayer('AIliteracy');
+      }
+      document.getElementById(lyr).style.visibility = 'visible';
+      document.getElementById(lyr).style.display = "";
+
+      currentLayer = lyr;
+      history.scrollRestoration = "manual";
+
+      $(window).scrollTop(0);
+    }
+    function showPage12() {
+      // prepare stuff for step 3
+      document.getElementById("endOfTLX").style.display = 'none';
+      counter = 0;
+      random_pairs = pair_combinator(demands);
+      pairs_length = random_pairs.length;
+
+      //$(".step_2").hide();
+      $(".step_3").show();
+
+      // start button for pairs
+      /*if ($(".step_3").find("div").length) {
+        $(".step_3 div").html("<button>Start</button>");
+        console.log("we are here")
+      } else {
+        console.log("but no, we are here");
+        $(".step_3").append("<div><button id='theStart' v-on:click='startPairComparison'>Start</button></div>");
+      }*/
+      // remove/reset "to go" counter
+      $(".step_3 .to_go").remove();
+    }
+    function pair_combinator(array) {
+
+      var length = array.length,
+        result = [],
+        counter = 0,
+        i, j;
+
+      for (i = 0; i < length; i++) {
+        for (j = i; j < length - 1; j++) {
+          result[counter] = shuffle([[array[i][0], array[i][1]], [array[j + 1][0], array[j + 1][1]]]);
+          counter++;
+        }
+      }
+
+      return shuffle(result);
+
+    }
+    function shuffle(array) {
+      var top = array.length,
+        tmp, current;
+
+      if (top) {
+        while (--top) {
+          current = Math.floor(Math.random() * (top + 1));
+          tmp = array[current];
+          array[current] = array[top];
+          array[top] = tmp;
+        }
+      }
+
+      return array;
+    }
+
+    function hideLayer(lyr) {
+      document.getElementById(lyr).style.visibility = 'hidden';
+    }
+
+
+  </script>
+</head>
+
+<body>
+  <div id='header'>
+    <p>Survey</p>
+  </div>
+  <div class="container" id='formBody'>
+    <div id="page11" class="page" style="visibility:visible; top:10%; left:5%">
+
+      <h1> INSTRUCTIONS</h1>
+      <h3>You’re now being presented with a series of rating scales.</h3>
+      <h4>For each of the six scales, evaluate the task you recently performed by moving the slider bars to the location
+        that matches your experience.</h4>
+      <h4> Each line has two endpoint descriptors that describe the scale. </h4>
+      <h4>Consider your responses carefully in distinguishing among the different task conditions, and consider each
+        scale individually.</h4>
+
+      <ol>
+        <h3>MENTAL DEMAND</h3>
+        <div class="row">
+          <li> How much mental and perceptual activity was required (e.g., thinking, deciding, calculating, remembering,
+            looking, searching, etc.)?</br>
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="mentalDemand-1">
+            <label>High</label></li>
+        </div>
+        <h3>PHYSICAL DEMAND</h3>
+        <div class="row">
+          <li> How much physical activity was required (e.g., pushing, pulling, turning, controlling, activating,
+            etc.)?</br>
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="physicalDemand-1">
+            <label>High</label></li>
+        </div>
+        <h3>TEMPORAL DEMAND</h3>
+        <div class="row">
+          <li> How much time pressure did you feel due to the rate or pace at which the tasks or task elements
+            occured?</br>
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="temporalDemand-1">
+            <label>High</label></li>
+        </div>
+        <h3>EFFORT</h3>
+        <div class="row">
+          <li> How hard did you have to work (mentally and physically) to accomplish your level of performance?</br>
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="effort">
+            <label>High</label></li>
+        </div>
+        <h3>PERFORMANCE</h3>
+        <div class="row">
+          <li> How successful do you think you were in accomplishing the goals of the task set by the experimenter (or
+            yourself)?</br>
+            <label style="margin-left: 20px;">Good</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="performance-1">
+            <label>Poor</label></li>
+        </div>
+        <h3>FRUSTRATION</h3>
+        <div class="row">
+          <br>
+          <li> How insecure, discouraged, irritated, stressed, and annoyed were you during the task?</br>
+            <label style="margin-left: 20px;"> Low</label>
+            <input type="range" min="1" max="21" value="1" class="slider" id="frustration-1">
+            <label>High</label></li>
+        </div>
+      </ol>
+      <input type="button" class="btn btn-success gap-md-top" value="Continue" onClick="showLayer('page1-2')"></button>
+    </div>
+    <!--end of page1 div-->
+    <div id="page1-2" class="page" style="padding-top: 20%;">
+      <section class="step_3">
+        <h2>Step 3: pair-wise comparison of factors</h2>
+        <p class="alt">Select the member of each pair that provided the most significant source of workload:</p>
+        <div><button id='theStart'>Start</button></div>
+
+      </section>
+      <input id="endOfTLX" type="button" class="btn btn-success gap-md-top" value="Next"
+        onClick="showLayer('AIliteracy')" style="margin-left: 5%;
+        display:'none'"></button>
+    </div>
+    <div id="AIliteracy" class="page" style="top:10%; left:5%; display:'none'; visibility:hidden;">
+
+      <h4>1. Autonomous Vehicles use AI to operate. True or false?</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q1-1" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q1-1" value="c2">
+        False
+      </label><br />
+
+
+      <h4>2. What kind of intelligence do autonomous vehicles exhibit? (select the best answer)</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q2-1" value="c1">
+        Human intelligence.
+      </label><br />
+      <label><input type="radio" name="q2-1" value="c2">
+        Machine (or artifitial) intelligence.
+      </label><br />
+      <label><input type="radio" name="q2-1" value="c3">
+        Animal intelligence.
+      </label><br />
+      <label><input type="radio" name="q2-1" value="c4">
+        None of the above.
+      </label><br />
+
+      <h4>3. Which of the following are different approaches or perspectives in developing "intelligent machines" for
+        autonomous cars? (Select all that apply)</h4>
+      <fieldset>
+        <input type="checkbox" name="q3-1" id="q3-1" value="RB">Rule-Based Systems.<br>
+        <input type="checkbox" name="q3-1" id="q3-2" value="NN">Neural Networks and Machine Learning.<br>
+        <input type="checkbox" name="q3-1" id="q3-3" value="MC">Manual Control and Direct Input.<br>
+        <input type="checkbox" name="q3-1" id="q3-4" value="GM">Genetic Modification and Cloning.<br>
+
+      </fieldset>
+
+      <h4>4. What best characterizes autonomous vehicles? Select the best answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+
+      <label><input type="radio" name="q4-1" value="c1">
+        They are characterized by a broad range of cognitive abilities and adaptability in various
+        tasks and contexts.
+      </label><br />
+      <label><input type="radio" name="q4-1" value="c2">
+        They are characterized by specialized skills and capabilities limited to specific tasks or
+        domains.
+      </label><br />
+      <label><input type="radio" name="q4-1" value="c3">
+        They are characterized by the ability to navigate and interact effectively in social
+        situations.
+      </label><br />
+      <label><input type="radio" name="q4-1" value="c4">
+        None of the above.
+      </label><br />
+
+
+      <h4>5. Which of the following is a problem that an autonomous vehihicle excels at solving? Select the best answer.
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q5-1" value="c1">
+        Driving in heavy traffic.
+      </label><br />
+      <label><input type="radio" name="q5-1" value="c2">
+        Parking in a tight spot.
+
+      </label><br />
+      <label><input type="radio" name="q5-1" value="c3">
+        Driving in a snowstorm.
+
+      </label><br />
+      <label><input type="radio" name="q5-1" value="c4">
+        Talking to the passengers in the car.
+      </label><br />
+
+      <h4>6. Which of the following is a problem that an autonomous car may have difficulty solving? Select the best
+        answer.
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q6-1" value="c1">
+        Keeping distance from the car in front of them on the road.
+      </label><br />
+
+      <label><input type="radio" name="q6-1" value="c2">
+        Staying in their lane on the road.
+      </label><br />
+
+      <label><input type="radio" name="q6-1" value="c3">
+        Detecting objects in heavy rain.
+      </label><br />
+
+      <label><input type="radio" name="q6-1" value="c4">
+        None of the above.
+      </label><br />
+
+      <h4>7. Transportation companies invest in autonomous vehicles in part because of the promise that they could
+        replace human professional drivers (e.g., truck drivers, taxi drivers, etc.) in the future. True or false?</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q7-1" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q7-1" value="c2">
+        False
+      </label><br />
+
+      <h4>8. AI technologies for autonomous driving will be ready for widespread adoption and presence on the roads in
+        the next 5 years. True or false?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q8" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q8" value="c2">
+        False
+      </label><br />
+
+      <h4>9. How does the image of a stop sign is represented to an autonomous vehicle?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q9" value="c1">
+        An array of numbers that represent the intensity of three colors (red, blue, green).
+
+      </label><br />
+      <label><input type="radio" name="q9" value="c2">
+
+        A set of information about the color, shape, and text of the sign.
+
+      </label><br />
+      <label><input type="radio" name="q9" value="c3">
+        Human designers explain the sign to the autonomous vehicle while driving.
+      </label><br />
+
+      <label><input type="radio" name="q9" value="c4">
+        A text that describes the sign to the autonomous vehicle.
+      </label><br />
+
+
+      <h4>10. How does the current autonomous vehicle get input from the environment? Select the best answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q10" value="c1">
+        Data from Sensors.
+
+      </label><br />
+      <label><input type="radio" name="q10" value="c2">
+        Data entered by the passenger of the autonomous vehicle.
+
+      </label><br />
+      <label><input type="radio" name="q10" value="c3">
+        By analyzing satellite imagery to understand the surrounding environment.
+
+      </label><br />
+      <label><input type="radio" name="q10" value="c4">
+        By receiving direct input from other autonomous vehicles in the vicinity.
+      </label><br />
+
+      <h4>11. The autonomous vehicles adjust their driving relative to weather conditions. True or false?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q11" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q11" value="c2">
+        False
+      </label><br />
+      <h4>12. The autonomous vehicles can recognize the other vehicle stopped in front of them. True or false?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q12" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q12" value="c2">
+        False
+      </label><br />
+      <h4>13. The autonomous vehicles can detect stop signs. True or false?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q13" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q13" value="c2">
+        False
+      </label><br />
+
+      <h4> 14. How do autonomous vehicles make decisions? Select the best answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q14" value="c1">
+        By using complex algorithms and machine learning techniques to analyze sensor data and make decisions based on
+        patterns and correlations.
+
+      </label><br />
+      <label><input type="radio" name="q14" value="c2">
+        By directly translating human language into computer-readable formats to enable comprehension.
+
+      </label><br />
+      <label><input type="radio" name="q11" value="c3">
+        By relying solely on pre-programmed rules and logic to interpret and understand the world.
+
+      </label><br />
+      <label><input type="radio" name="q14" value="c4">
+        By using a network of interconnected supercomputers to simulate and model the entire world in real time.
+      </label><br />
+
+      <h4> 15. Which of the following is not a step required to enable autonomous vehicles to drive? Select the best
+        answer.
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q15" value="c1">
+        Performing extensive road testing to collect real-world driving data.
+
+      </label><br />
+      <label><input type="radio" name="q15" value="c2">
+        Assigning labels to the vehicle-specific and driving-specific data by experts.
+
+      </label><br />
+      <label><input type="radio" name="q15" value="c3">
+        Train AI models for subsystems of autonomous vehicles and test them.
+
+      </label><br />
+      <label><input type="radio" name="q15" value="c4">
+        Program how the vehicle should behave in each unique situation.
+      </label><br />
+
+
+      <h4> 16. What is the primary role of humans riding in fully autonomous vehicles? Select the best answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q16" value="c1">
+        Specifying a destination for autonomous vehicle.
+
+      </label><br />
+      <label><input type="radio" name="q16" value="c2">
+        Guide the autonomous vehicle through the construction zone.
+
+
+      </label><br />
+      <label><input type="radio" name="q16" value="c3">
+        Steering the wheel to direct the vehicle.
+
+      </label><br />
+      <label><input type="radio" name="q16" value="c4">
+        Taking control of the vehicle in emergency situations.
+      </label><br />
+
+      <h4> 17. What is the primary role of humans in ensuring autonomous vehicles operate correctly? Select all that
+        apply.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <fieldset>
+        <input type="checkbox" name="q17" id="q17-1" value="DT">Designing and training the AI models used in autonomous
+        vehicles.<br>
+        <input type="checkbox" name="q17" id="q17-2" value="MS">Monitoring and supervising autonomous vehicles during
+        their test operation.<br>
+        <input type="checkbox" name="q17" id="q17-3" value="SA">Supervising autonomous vehicles at all times.<br>
+        <input type="checkbox" name="q17" id="q17-4" value="PO">Physically operating the autonomous vehicles during
+        their operation.<br>
+
+      </fieldset>
+      <!--
+      <label><input type="radio" name="q14" value="c1">
+        Designing and training the AI models used in autonomous cars.
+
+      </label><br />
+      <label><input type="radio" name="q14" value="c2">
+        Monitoring and supervising autonomous vehicles during their test operation.
+
+      </label><br />
+      <label><input type="radio" name="q14" value="c3">
+        Supervising autonomous vehicles at all times.
+
+      </label><br />
+      <label><input type="radio" name="q14" value="c4">
+        Physically operating the autonomous vehicles during their operation.
+      </label><br />
+      -->
+
+      <h4> 18. How does the AV detect objects in the surrounding area? Select all that apply.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <fieldset>
+        <input type="checkbox" name="q18" id="q18-1" value="laser">Using laser light reflected off of surrounding
+        objects.<br>
+        <input type="checkbox" name="q18" id="q18-2" value="magnetic">Using magnetic waves reflected off of surrounding
+        objects.<br>
+        <input type="checkbox" name="q18" id="q18-3" value="sound">Using sounds emitted from the surrounding
+        objects.<br>
+        <input type="checkbox" name="q18" id="q18-4" value="passenger">Using input from the passenger.<br>
+
+      </fieldset>
+      <!--
+      <label><input type="radio" name="q15" value="c1">
+        Using laser light reflected off of surrounding objects.
+      </label><br />
+      <label><input type="radio" name="q15" value="c2">
+        Using magnetic waves reflected off of surrounding objects.
+
+      </label><br />
+      <label><input type="radio" name="q15" value="c3">
+        Using sounds emitted from the surrounding objects.
+      </label><br />
+      <label><input type="radio" name="q15" value="c4">
+        Using input from the passenger.
+      </label><br />
+      -->
+
+      <h4>19. The decision-making subsystems in autonomous cars have the ability to learn from data. True or false?</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q19" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q19" value="c2">
+        False
+      </label><br />
+
+      <h4> 20. What data do autonomous vehicles learn from to detect and identify objects in their surroundings,
+        including pedestrians? Select the best answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q20" value="c1">
+        Examples of similar objects that were previously collected using their sensors and labeled and categorized by
+        humans.
+      </label><br />
+      <label><input type="radio" name="q20" value="c2">
+        By asking passengers what different objects in their surroundings are.
+
+      </label><br />
+      <label><input type="radio" name="q20" value="c3">
+        Passengers’ description of different objects in their surroundings.
+
+      </label><br />
+      <label><input type="radio" name="q20" value="c4">
+        Images of the objects available on the Internet.
+      </label><br />
+
+      <h4> 21. The autonomous vehicles learn how to drive from existing driving data. True or false?</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q21" value="c1">
+        True
+      </label><br />
+
+      <label><input type="radio" name="q21" value="c2">
+        False
+      </label><br />
+
+      <h4> 22. Driving data collected in the US can be used to train autonomous vehicles anywhere else in the world.
+        True
+        or
+        false?</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q22" value="c1">
+        True
+      </label><br />
+
+      <label><input type="radio" name="q22" value="c2">
+        False
+      </label><br />
+
+
+      <h4> 23. Which of the following statements is true about the ability of autonomous vehicle systems to act on the
+        world physically? </h4>
+      <h4>Select the best answer. Example of acting on the world: A robot goes from point A to point B.
+        Example of reacting on the world: A robot jumps to avoid an obstacle.
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q23" value="c1">
+        autonomous vehicle can only react to the world.
+
+      </label><br />
+      <label><input type="radio" name="q23" value="c2">
+        autonomous vehicle can only act on the world in a planned and deliberate manner.
+
+      </label><br />
+      <label><input type="radio" name="q23" value="c3">
+        autonomous vehicle can both react to the world and act on the world in a planned and deliberate manner.
+
+      </label><br />
+      <label><input type="radio" name="q23" value="c4">
+        autonomous vehicle cannot act on the world at all.
+      </label><br />
+
+      <h4> 24. Which of the following are used by autonomous vehicles to perceive the world around them? Select the bes
+        t answer.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q24" value="c1">
+        Sensors that use light to create a picture of the environment.
+
+      </label><br />
+      <label><input type="radio" name="q24" value="c2">
+        Sensors that use radio waves to detect objects.
+
+
+      </label><br />
+      <label><input type="radio" name="q24" value="c3">
+        Sensors that use lasers to create a 3D map of the environment.
+
+      </label><br />
+      <label><input type="radio" name="q24" value="c4">
+        All of the above.
+      </label><br />
+
+
+
+      <h4> 25. Which of the following is a potential ethical issue surrounding AI? Select all that apply.</h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <fieldset>
+        <input type="checkbox" name="q25" id="q25-1" value="privacy">AI systems can collect and store large amounts of
+        data
+        about individuals, which could be used to track
+        their movements, monitor their activities, or even predict their future behavior.
+        objects.<br>
+        <input type="checkbox" name="q25" id="q25-2" value="employment">AI systems are capable of automating many tasks
+        that are
+        currently performed by humans, which could
+        lead to job losses and economic disruption.
+        objects.<br>
+        <input type="checkbox" name="q25" id="q25-3" value="accountability">It is always clear how AIs are making their
+        decisions
+        and who is accountable for those decisions.<br>
+        <input type="checkbox" name="q25" id="q25-4" value="bias">AI systems are trained on data that is collected from
+        the real world, which ensures that AVs are not biased by
+        developer decisions.<br>
+
+      </fieldset>
+
+      <h4>26. Autonomous vehicles are programmable. True or false?
+      </h4>
+      <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+      <label><input type="radio" name="q26" value="c1">
+        True
+      </label><br />
+      <label><input type="radio" name="q26" value="c2">
+        False
+      </label><br />
+
+      <!--
+      <label><input type="radio" name="q22" value="c1">
+        AI systems can collect and store large amounts of data about individuals, which could be used to track
+        their movements, monitor their activities, or even predict their future behavior.
+      </label><br />
+      <label><input type="radio" name="q22" value="c2">
+        AI systems are capable of automating many tasks that are currently performed by humans, which could
+        lead to job losses and economic disruption.
+
+      </label><br />
+      <label><input type="radio" name="q22" value="c3">
+        It is always clear how AVs are making their decisions and who is accountable for those decisions.
+      </label><br />
+      <label><input type="radio" name="q22" value="c4">
+        AI systems are trained on data that is collected from the real world, which ensures that AVs are not biased by
+        developer decisions.
+      </label><br />
+
+-->
+      <input id="endOfAILit" type="button" class="btn btn-success gap-md-top" value="Next" onClick="showLayer('page22')"
+        style="margin-left: 5%;
+        display:'none'"></button>
+    </div>
+    <div id="page22" class="page" style="top:10%; left:5%">
+
+
+      <form id="quiz2">
+        <!-- Question 1 -->
+        <h4>1. Do you have a driver license?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q5" value="c1">
+          Yes
+        </label><br />
+        <label><input type="radio" name="q5" value="c2">
+          No
+        </label><br />
+
+        <!-- Question 2 -->
+        <h4>2. How long have you had your driver license?</h4>
+        <div class="row2" style="padding-left: 30px;">
+          <textarea rows="1" cols="16" v-model='driverLicenseAge'
+            style="background-color:rgb(209, 238, 247);"></textarea>
+        </div>
+        <!-- Question 3 -->
+        <h4>3. Which country did you get your driver license from?</h4>
+        <div class="row2" style="padding-left: 30px;">
+          <textarea rows="1" cols="16" v-model='country' style="background-color:rgb(209, 238, 247);"></textarea>
+        </div>
+
+        <!--  --------   -->
+        <!-- Question 4 -->
+        <h4>4. Are you left handed or right handed?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q6" value="c1">
+          Left handed
+        </label><br />
+        <label><input type="radio" name="q6" value="c2">
+          Right handed
+        </label><br />
+
+        <!-- Question 4 -->
+        <h4>5. Which one describes your age the best?</h4>
+        <!-- Here are the choices for the first question. Each input tag must have the same name. For this question, the name is q1. -->
+        <!-- The value is which answer the choice corresponds to. -->
+        <label><input type="radio" name="q1" value="c1">
+          &#60; 20
+        </label><br />
+        <label><input type="radio" name="q1" value="c2">
+          21 - 30
+        </label><br />
+        <label><input type="radio" name="q1" value="c3">
+          31 - 40
+        </label><br />
+        <label><input type="radio" name="q1" value="c4">
+          41-50
+        </label><br />
+        <label><input type="radio" name="q1" value="c5">
+          &#62; 51
+        </label><br />
+
+        <!-- Question 5 -->
+        <h4>6. What is your gender?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q2" value="c1">
+          Female
+        </label><br />
+        <label><input type="radio" name="q2" value="c2">
+          Male
+        </label><br />
+        <label><input type="radio" name="q2" value="c3">
+          Non binary
+        </label><br />
+        <label><input type="radio" name="q2" value="c4">
+          Prefer to self-describe:
+          <div class="row" style="padding-left: 30px;">
+            <textarea rows="1" cols="15" v-model='genderMMText' style="background-color:rgb(209, 238, 247);"></textarea>
+          </div>
+        </label><br />
+
+        <!-- Question 6 -->
+        <h4>7. Please indicate whether you consider yourself to be Hispanic or Latino.</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q3" value="c1">
+          Yes, Hispanic or Latino
+        </label><br />
+        <label><input type="radio" name="q3" value="c2">
+          No, not Hispanic or Latino
+        </label><br />
+        <label><input type="radio" name="q3" value="c3">
+          Prefer not to say
+        </label><br />
+
+        <!-- Question 7 -->
+        <h4>8. In addition, select one or more of the following racial categories to describe yourself:
+        </h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q4" value="c1">
+          American Indian or Alaska Native
+        </label><br />
+        <label><input type="radio" name="q4" value="c2">
+          Asian
+        </label><br />
+        <label><input type="radio" name="q4" value="c3">
+          Black or African American
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c4">
+          Native Hawaiian or Other Pacific Islander
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c5">
+          White
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c6">
+          Prefer not to say.
+
+        </label><br />
+
+        <div class="container">
+          <div class="row2">
+            <h4> 9. Do you have any comments or feedback for us?</h4>
+          </div>
+          <br />
+          <div class="row2" style="margin: 0px; padding-left: 3%;">
+            <textarea rows="2" cols="60" v-model='workerFeedback' style="background-color:rgb(209, 238, 247);">
+            </textarea>
+          </div>
+        </div>
+        <div class="row justify-content-center" style="text-align: center;">
+          <!--<input type="button" class="btn btn-success gap-md-top" id="C1" value="Go Back" onClick="showLayer('page1')">-->
+          <input type='button' id='submit' class="btn btn-success gap-md-top" value='Final Submit'
+            v-on:click='finalSubmit()'></button>
+          <!--<form id="mturk_form"></form>-->
+        </div>
+      </form>
+    </div>
+
+
+  </div>
+  <script src='js/libs/vue.js'></script>
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="js/highcharts-2.3.3.min.js"></script>
+  <script src='js/survey.js'></script>
+  <!--<script src='js/mturk.js'></script>-->
+
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+
+.container {
+    width: 85%;
+    margin-top: 30px;
+    justify-content: left;
+    text-align: left;
+}
+
+.row2 {
+  flex-shrink: 0;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
+  margin-top: var(--bs-gutter-y);
+}
+
+
+
+#mmContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    background: white;
+    min-height: 150px;
+    align-items: center;
+}
+
+.rbutton {
+    margin: 0px 5px;
+}
+#page2 {
+  position: absolute;
+  vertical-align: bottom;
+}
+.com {
+  width: 15%;
+  margin: 0px;
+  padding: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+.slider {
+  width:500px;
+}
+
+.img2 {
+  float: right;
+  margin-left: 30%;
+}
+.text-column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-right: 35px;
+}
+
+
+.page{
+  position: absolute;
+  top: 10;
+  left: 100;
+  visibility: hidden;
+  vertical-align: bottom;
+}
+
+/* Clearfix (clear floats) */
+/*#row2::after  */
+
+.div2{
+  text-align: left;
+  width:fit-content;
+  hight: fit-content;
+  margin-left: 38px;
+}
+/*display: grid;
+grid-template-columns: repeat(5, 90px);
+grid-auto-rows: 50px;
+grid-gap: 10px;
+width: 516px;*/
+
+
+
+.sLables {
+  display: flex;
+  width: -webkit-fill-available;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.obName {
+  width: 15%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.form-check {
+    width: 15%;
+    display: flex;
+    justify-content: left;
+}
+
+
+h1.likert-header {
+  padding-left:4.25%;
+  margin:20px 0 0;
+}
+form .statement {
+  display:block;
+  justify-content: left!important;
+  font-size: 1rem;
+  padding: 0px 0 0 1.25%;
+  margin-bottom:1px;
+}
+form .likert {
+  list-style:none;
+  width:100%;
+  margin:0;
+  padding:0 0 0px;
+  display:block;
+  
+}
+form .likert:last-of-type {border-bottom:0;}
+form .likert:before {
+  content: '';
+  position:relative;
+  top:11px;
+  left:9.5%;
+  display:block;
+  background-color:#efefef;
+  height:4px;
+  width:78%;
+}
+form .likert li {
+  display:inline-block;
+  width:19%;
+  text-align:center;
+  vertical-align: top;
+}
+form .likert li input[type=radio] {
+  display:block;
+  position:relative;
+  top:0;
+  left:50%;
+  margin-left:-6px;
+  
+}
+form .likert li label {width:100%;}
+form .buttons {
+  margin:30px 0;
+  padding:0 4.25%;
+  text-align:right
+} 
+form .buttons button {
+  padding: 5px 10px;
+  background-color: #67ab49;
+  border: 0;
+  border-radius: 3px;
+}
+

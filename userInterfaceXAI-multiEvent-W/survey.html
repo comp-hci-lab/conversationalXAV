@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Scatola</title>
+    <!-- Library scripts w/ local-fallbacks -->
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script>window.jQuery || document.write("<script src='js/libs/jquery.min.js'>\x3C/script>");</script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.min.js"></script>
+    <script src="node_modules/easytimer.js/dist/easytimer.js"></script>-->
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <script>window.Vue || document.write("<script src='js/libs/vue.js'>\x3C/script>");</script>
+    <link href='css/survey.css' rel='stylesheet'></link>
+    <!--<link href='css/spacing.css' rel='stylesheet'></link>-->
+    
+    <link href='css/style.css' rel='stylesheet'></link>
+    
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <!-- Project scripts -->
+    <script src='js/libs/gup.js'></script>
+    <script src='js/survey.js'></script>
+  
+    
+    <!-- Style sheets-->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    <!-- Additional Bootstrap-->
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</script>
+</head>
+
+<body>
+  <div id='header'>
+    <p>Survey</p>
+  </div>
+  <div class="container" id='formBody'>
+  
+    <form id="quiz2">
+        <!-- Question 1 -->
+        <h4>1. Do you have a driver license?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q5" value="c1">
+          Yes
+        </label><br />
+        <label><input type="radio" name="q5" value="c2">
+          No
+        </label><br />
+
+        <!-- Question 2 -->
+        <h4>2. How long have you had your driver license?</h4>
+        <div class="row2" style ="padding-left: 30px;">
+              <textarea rows="1" cols="16" v-model='driverLicenseAge' style="background-color:rgb(209, 238, 247);"></textarea>
+        </div>
+        <!-- Question 3 -->
+        <h4>3. Which country did you get your driver license from?</h4>
+        <div class="row2" style ="padding-left: 30px;">
+              <textarea rows="1" cols="16" v-model='country' style="background-color:rgb(209, 238, 247);"></textarea>
+        </div>
+
+        <!--  --------   -->
+        <!-- Question 4 -->
+        <h4>4. Are you left handed or right handed?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q6" value="c1">
+          Left handed
+        </label><br />
+        <label><input type="radio" name="q6" value="c2">
+          Right handed
+        </label><br />
+      
+        <!-- Question 4 -->
+        <h4>5. Which one describes your age the best?</h4>
+        <!-- Here are the choices for the first question. Each input tag must have the same name. For this question, the name is q1. -->
+        <!-- The value is which answer the choice corresponds to. -->
+        <label><input type="radio" name="q1" value="c1">
+          &#60; 20
+        </label><br />
+        <label><input type="radio" name="q1" value="c2">
+          20 - 30
+        </label><br />
+        <label><input type="radio" name="q1" value="c3">
+          30 - 40
+        </label><br />
+        <label><input type="radio" name="q1" value="c4">
+          40-50
+        </label><br />
+        <label><input type="radio" name="q1" value="c5">
+          &#62; 50
+        </label><br />
+    
+        <!-- Question 5 -->
+        <h4>6. What is your gender?</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q2" value="c1">
+          Female
+        </label><br />
+        <label><input type="radio" name="q2" value="c2">
+          Male
+        </label><br />
+        <label><input type="radio" name="q2" value="c3">
+          Non binary
+        </label><br />
+        <label><input type="radio" name="q2" value="c4">
+          Prefer to self-describe:
+          <div class="row" style ="padding-left: 30px;">
+               <textarea rows="1" cols="15" v-model='genderMMText' style="background-color:rgb(209, 238, 247);"></textarea>
+          </div>
+        </label><br/>
+        
+        <!-- Question 6 -->
+        <h4>7. Please indicate whether you consider yourself to be Hispanic or Latino.</h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q3" value="c1">
+          Yes, Hispanic or Latino
+        </label><br />
+        <label><input type="radio" name="q3" value="c2">
+          No, not Hispanic or Latino
+        </label><br />
+        <label><input type="radio" name="q3" value="c3">
+          Prefer not to say
+        </label><br />
+
+        <!-- Question 7 -->
+        <h4>8. In addition, select one or more of the following racial categories to describe yourself:
+        </h4>
+        <!-- Here are the choices for the second question. Notice how each input tag has the same name (q2), but a different name than the previous question. -->
+        <label><input type="radio" name="q4" value="c1">
+          American Indian or Alaska Native
+        </label><br />
+        <label><input type="radio" name="q4" value="c2">
+          Asian
+        </label><br />
+        <label><input type="radio" name="q4" value="c3">
+          Black or African American
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c4">
+          Native Hawaiian or Other Pacific Islander
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c5">
+          White
+        </label><br />
+
+        <label><input type="radio" name="q4" value="c6">
+          Prefer not to say.
+
+        </label><br/>
+
+        <div class="container">
+          <div class="row2">
+            <h4> 9. Do you have any comments or feedback for us?</h4>
+          </div>
+          <br />
+          <div class="row2" style="margin: 0px; padding-left: 3%;">
+            <textarea rows="2" cols="60" v-model='workerFeedback' style="background-color:rgb(209, 238, 247);">
+            </textarea>
+          </div>
+      </div>
+      <div class="row justify-content-center" style="text-align: center;">
+          <!--<input type="button" class="btn btn-success gap-md-top" id="C1" value="Go Back" onClick="showLayer('page1')">-->
+          <input type='button' id='submit' class="btn btn-success gap-md-top" value='Final Submit' v-on:click='finalSubmit()'></button>
+          <!--<form id="mturk_form"></form>-->
+      </div>
+    </form>
+    
+  
+  </div>
+  <script src='js/libs/vue.js'></script>
+  <!--<script src='js/mturk.js'></script>-->
+</body>
+</html>
+

@@ -1,0 +1,519 @@
+<!--<!DOCTYPE html>-->
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>User Interface</title>
+
+   <!-- Library scripts w/ local-fallbacks -->
+   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+   <script>window.jQuery || document.write("<script src='js/libs/jquery.min.js'>\x3C/script>");</script>
+   <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+   <script>window.Vue || document.write("<script src='js/libs/vue.js'>\x3C/script>");</script>
+   <!--<script src="/socket.io/socket.io.js"></script>-->
+
+   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.13.0/dist/tf.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder/dist/universal-sentence-encoder.min.js"></script>
+
+  <!-- Style sheets-->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+  <!--<link href='css/spacing.css' rel='stylesheet'></link>-->
+  <!--<link href='css/shapes.css' rel='stylesheet'></link>-->
+  <link href='css/style.css' rel='stylesheet'></link>
+  <!--<link href='css/robots.css' rel='stylesheet'></link>-->
+  <!--<link href='css/survey.css' rel='stylesheet'></link>-->
+
+
+ 
+  <!-- Bootstrap-Vue -->
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <!--<script src='js/survey.js'></script>-->
+  <script src='js/libs/gup.js'></script>
+  <script src='js/libs/vue.js'></script>
+  <!-- Additional Bootstrap-->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="js/libs/easytimer.min.js"></script>
+  <!-- Project scripts -->
+  <script src='js/shared.js'></script>
+  <script src='js/page.js'></script>
+  
+
+
+  <script language="JavaScript">
+    var currentLayer = 'page1';
+    function showLayer(lyr){
+      hideLayer(currentLayer);
+      //document.getElementById(lyr).style.visibility = 'visible';
+      document.getElementById(lyr).style.display = '';
+      currentLayer = lyr;
+      history.scrollRestoration = "manual";
+      $(window).scrollTop(0);
+      
+    }
+    
+    function hideLayer(lyr){
+      //document.getElementById(lyr).style.visibility = 'hidden';
+      document.getElementById(lyr).style.display = 'none';
+    }
+    
+    </script>
+</head>
+
+<body>
+  
+
+    <div id='header'>
+      <p>Explainable Autonomous Vehicle</p>
+    </div>
+    <!--<div id="page1" class="page" style="visibility:visible;">-->
+    <div id="page1" class="page" style="display:'';">
+      <div class="consent-text">
+        <h1 style="text-align: center;">Study Consent</h1>
+        <p> Explainability in autonomous vehicles: The ability to explain and justify the decision-making process of an
+          Artificial Intelligence (AI) aids its trustworthiness, accountability, fairness, inclusivity, and accessibility.
+          The results of our study will inform the design of explanation methods for autonomous vehicles. </p>
+        <p> If you agree to be part of the research study, you will be asked to read and sign (by clicking the “I consent”
+          button”) this consent form to be part of this study. Once you submit this consent form, you will be presented
+          with multiple 30 seconds-long videos of the autonomous vehicle in which we assume you are sitting in and looking
+          out the vehicle.
+          You can not replay the video(s) as you won’t be able to relive a real-life driving scenario. After
+          you watch all of the videos and answer the questions for each video, we will ask you to answer three surveys.
+          The first survey tries to measure the cognitive load of the task, the second tests your general AI knowledge.
+          In the third survey, we will
+          ask about the range of your age, gender, ethnicity, race, whether or not you have a driver's license, how long
+          you have had your driver's license, which
+          country you got your driver's license from, and if you are left-handed or right-handed.</p>
+          <b>Benefits of the research</b> <p>  Participating in this study may not benefit you directly, but it will help the research team and the AI community to learn about the need for explanation and the type of end-user questions in automated systems such as self-driving vehicles.</p>
+          
+        <b> Risks and discomforts </b><p> You might experience fatigue. You may see crash videos, and that can add additional discomfort. You may also be deceived while performing the task. You are allowed to pause during the task and continue from where you left off. Also, you can stop participating in the study at any time without any cost to you. You will not know all aspects of the study until your participation is complete.</p>
+          
+        <b> Data security and storage</b> <p> We will protect the confidentiality of your research records by not using any identifiable information, such as your name or email address, to identify you on any study records. Instead, a unique random identifier will be assigned to you. To minimize the risk of a data breach, we store all the content including the recordings on a password-protected server behind a firewall minimizing any such breaches.
+  
+            Information collected in this project may be shared with other researchers, but we will not share any information that could identify you.</p>
+          
+        <b> Compensation </b> <p> You will be compensated $15 (this task will, on average, take up to 60 minutes to complete resulting in approximately $15/hour compensation) for taking part in this study.</p>
+          
+        <p> Participating in this study is completely voluntary. You must be 18 years or older and reside in the US. Even if you decide to participate now, you may change your mind and stop at any time.  You may choose to stop participating in the study at any time for any reason. You can request to delete your profile at any time and withdraw from the study.</p>
+          
+        <p>If you have questions about this research study, please contact Dr. Somayeh Molaei, EECS, University of Michigan at smolaei@umich.edu </p>
+          
+        <p> As part of their review, the University of Michigan Health Sciences and Behavioral Sciences Institutional Review Board (IRB) has determined that this study is no more than minimal risk and exempt from on-going IRB oversight.
+          </p>
+      </div>
+      <div class="consent-buttons">
+        <input type="button" class="btn btn-success gap-md-top" value="I Consent" onClick="showLayer('page2')"></button>
+        <input type="button" class="btn btn-success gap-md-top" value="Not Intrested" onClick="showLayer('page3')" style="margin-left: 5%;
+        background-color: red;"></button>
+      </div>
+    </div>
+    
+    <!--<div id="page2" class="page" style="visibility:hidden;">-->
+    <div id="page2" class="page" style="margin-top: 15px;display:none;">
+      <div class='main-container' id='dynamic'>
+        
+        <div id='robot-container' class='wrapper' style="display: none ;" >
+
+          <div id="static-prompt" style="display: '' ;">
+            <h4>This is the information we have about this event, please read the following information, and answers the
+              following questions using the given information.</h4>
+            <p id="prompt"></p>
+  
+            <input type="button" class="btn btn-success gap-md-top" value="I read the information"
+               v-on:click="readExplanation()" style="margin-top: 10%;"></button>
+          </div>
+          
+
+          <!-- Question 3 -->
+          <form id="quiz3" style ="padding-right: 10px; display: none;">
+            <h4>1. As a passenger of the self driving vehicle in the video you watched, if the autonomus vehicle can answer any question you ask, what additional information whould you like to know?</h4>
+            <h4>Please ask any question you have and then press <b>Enter</b> key. After you asked all your questions click on the button <b>No More Questions</b> to end your chat with the vehicle.</h4>
+
+            <div id="container" class="container" class="wrapper">
+              <!--<img src="https://cdn.pixabay.com/photo/2020/01/02/16/38/chatbot-4736275_960_720.png" height="400vh" alt="Chatbot clipart">-->
+               <div id="chat" class="chat">
+                <div id="messages" class="messages"></div>
+                <!--<input id="input" type="text" placeholder="Write something..." autocomplete="off" autofocus="true" />-->
+                <textarea id='uq1' rows="2" cols="50" placeholder="I am your vehicle, ask me questions." style="background-color:rgb(209, 238, 247);"></textarea>
+                <!--<input type="text" name="inputText" id='uq1' rows="2" cols="50" placeholder="I am your vehicle, ask me questions." autofocus="true" style="background-color:rgb(209, 238, 247);">-->
+              </div>
+            </div>
+            <!--<input type='button' id='askVehicle' class="btn btn-success gap-md-top" value='Ask Vehicle' v-on:click="askWizard()" style="display: '';"></button>-->
+            <input type='button' id='noMore' class="btn btn-danger gap-md-top" value='No More Questions' v-on:click="showConfirmation()" style="display: '';"></button>
+          
+          </form>
+          <form id="quiz2After" style ="padding-left: 10px; display:none;">
+            <div class='progress-counter' style="padding-bottom: 10px;padding-top: 5px;">
+              <p>  {{objMessage}} </p>
+          </div>
+            <h4>Please answer the following questions regarding the driving event you just saw.</h4>
+            <h6>1. What did the autonomous vehicle do in this driving event?</h6>
+            
+            <label><input type="radio" name="q1After" value="c1">
+              {{q1_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q1After" value="c2">
+              {{q1_correct}}
+            </label><br />
+            
+            <label><input type="radio" name="q1After" value="c4">
+              {{q1_incorrect2}}
+            </label><br />
+            <h6>2. Did the autonomous vehicle roll over?</h6>
+            
+            <label><input type="radio" name="q2After" value="c1">
+              {{q2_correct}}
+            </label><br />
+            <label><input type="radio" name="q2After" value="c2">
+              {{q2_incorrect}}
+            </label><br />
+            <h6>3. Did the autonomous vehicle fail to use its break system?</h6>
+            
+            <label><input type="radio" name="q3After" value="c1">
+              {{q3_correct}}
+            </label><br />
+            <label><input type="radio" name="q3After" value="c2">
+              {{q3_incorrect}}
+            </label><br />
+
+            <h6>4. Was there anything that obstructs the given vehicle’s view?</h6>
+            
+            <label><input type="radio" name="q4After" value="c1">
+              {{q4_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q4After" value="c2">
+              {{q4_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q4After" value="c3">
+              {{q4_incorrect3}}
+            </label><br />
+            <label><input type="radio" name="q4After" value="c4">
+              {{q4_correct}}
+            </label><br />
+
+            <h6>5. What lighting condition the autonomous vehicle was driving in? </h6>
+            
+            <label><input type="radio" name="q5After" value="c1">
+              {{q5_correct}}
+            </label><br />
+            <label><input type="radio" name="q5After" value="c2">
+              {{q5_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q5After" value="c3">
+              {{q5_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q5After" value="c4">
+              {{q5_incorrect3}}
+            </label><br />
+
+            <h6>6. What was the autonomous vehicle doing that might have led to the incident? Select the best answer.</h6>
+            
+            <label><input type="radio" name="q6After" value="c1">
+              {{q6_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q6After" value="c2">
+              {{q6_correct}}
+            </label><br />
+            <label><input type="radio" name="q6After" value="c3">
+              {{q6_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q6After" value="c4">
+              {{q6_incorrect3}}
+            </label><br />
+
+            <h6>7. How do you describe the nature of what the autonomous vehicle did?</h6>
+            
+            <label><input type="radio" name="q7After" value="c1">
+              {{q7_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q7After" value="c2">
+              {{q7_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q7After" value="c3">
+              {{q7_incorrect3}}
+            </label><br />
+            <label><input type="radio" name="q7After" value="c4">
+              {{q7_correct}}
+            </label><br />
+
+            <h6>8. How severe was the incident involving the autonomous vehicle?</h6>
+            
+            <label><input type="radio" name="q8After" value="c1">
+              {{q8_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q8After" value="c2">
+              {{q8_correct}}
+            </label><br />
+            <label><input type="radio" name="q8After" value="c3">
+              {{q8_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q8After" value="c4">
+              {{q8_incorrect3}}
+            </label><br />
+
+            <h6>9. 	Which one of the following evasive behaviors did the autonomous vehicle do in the given driving event?</h6>
+            
+            <label><input type="radio" name="q9After" value="c1">
+              {{q9_correct}}
+            </label><br />
+            <label><input type="radio" name="q9After" value="c2">
+              {{q9_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q9After" value="c3">
+              {{q9_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q9After" value="c4">
+              {{q9_incorrect3}}
+            </label><br />
+
+            <h6>10. What did the autonomous vehicle do after the incident?</h6>
+            
+            <label><input type="radio" name="q10After" value="c1">
+              {{q10_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q10After" value="c2">
+              {{q10_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q10After" value="c3">
+              {{q10_correct}}
+            </label><br />
+            <label><input type="radio" name="q10After" value="c4">
+              {{q10_incorrect3}}
+            </label><br />
+
+            <h6>11. How was the weather condition in the given driving event?</h6>
+            
+            <label><input type="radio" name="q11After" value="c1">
+              {{q11_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q11After" value="c2">
+              {{q11_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q11After" value="c3">
+              {{q11_incorrect3}}
+            </label><br />
+            <label><input type="radio" name="q11After" value="c4">
+              {{q11_correct}}
+            </label><br />
+            
+            <h6>12. Which one of the following weather conditions present in this scenario might have interfered with the autonomous vehicle’s driving?</h6>
+            
+            <label><input type="radio" name="q12After" value="c1">
+              {{q12_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q12After" value="c2">
+              {{q12_correct}}
+            </label><br />
+            <label><input type="radio" name="q12After" value="c3">
+              {{q12_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q12After" value="c4">
+              {{q12_incorrect3}}
+            </label><br />
+
+            <h6>13. What type of road was the autonomous vehicle driving on?</h6>
+            
+            <label><input type="radio" name="q15After" value="c1">
+              {{q13_correct}}
+            </label><br />
+            <label><input type="radio" name="q15After" value="c2">
+              {{q13_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q15After" value="c3">
+              {{q13_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q15After" value="c4">
+              {{q13_incorrect3}}
+            </label><br />
+
+            <h6>14.  Which of the following traffic densities might have influenced the autonomous vehicle’s driving?</h6>
+            
+            <label><input type="radio" name="q13After" value="c1">
+              {{q14_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q13After" value="c2">
+              {{q14_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q13After" value="c3">
+              {{q14_incorrect3}}
+            </label><br />
+            <label><input type="radio" name="q13After" value="c4">
+              {{q14_correct}}
+            </label><br />
+
+            <h6>15. Which one of the following traffic control signs should the autonomous vehicle be able to detect in this driving event?</h6>
+            
+            <label><input type="radio" name="q14After" value="c1">
+              {{q15_correct}}
+            </label><br />
+            <label><input type="radio" name="q14After" value="c2">
+              {{q15_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q14After" value="c3">
+              {{q15_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q14After" value="c4">
+              {{q15_incorrect3}}
+            </label><br />
+            
+            <h6>16. How was the alignment of the autonomous vehicle with the road while driving?</h6>
+            
+            <label><input type="radio" name="q16After" value="c1">
+              {{q16_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q16After" value="c2">
+              {{q16_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q16After" value="c3">
+              {{q16_correct}}
+            </label><br />
+            <label><input type="radio" name="q16After" value="c4">
+              {{q16_incorrect3}}
+            </label><br />
+
+            <h6>17. Did the construction zone contribute to autonomous vehicles’ behavior?</h6>
+            
+            <label><input type="radio" name="q17After" value="c1">
+              {{q17_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q17After" value="c2">
+              {{q17_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q17After" value="c3">
+              {{q17_correct}}
+            </label><br />
+            <label><input type="radio" name="q17After" value="c4">
+              {{q17_incorrect3}}
+            </label><br />
+            
+            <h6>18.  How many other motorists did contribute to this driving event?</h6>
+            
+            <label><input type="radio" name="q18After" value="c1">
+              {{q18_correct}}
+            </label><br />
+            <label><input type="radio" name="q18After" value="c2">
+              {{q18_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q18After" value="c3">
+              {{q18_incorrect2}}
+            </label><br />
+            
+            <h6>19.  Were there any other objects or animals on the road that were involved in what happened in the given driving event?</h6>
+            
+            <label><input type="radio" name="q19After" value="c1">
+              {{q19_correct}}
+            </label><br />
+            <label><input type="radio" name="q19After" value="c2">
+              {{q19_incorrect}}
+            </label><br />
+            
+            <h6>20. Who was at fault in the given driving event?</h6>
+            
+            <label><input type="radio" name="q20After" value="c1">
+              {{q20_incorrect1}}
+            </label><br />
+
+            <label><input type="radio" name="q20After" value="c2">
+              {{q20_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q20After" value="c3">
+              {{q20_incorrect3}}
+            </label><br />
+            <label><input type="radio" name="q20After" value="c4">
+              {{q20_correct}}
+            </label><br />
+
+            <h6>21. How was the autonomous vehicle's maneuver judgment? </h6>
+            
+            <label><input type="radio" name="q21After" value="c1">
+              {{q21_incorrect1}}
+            </label><br />
+            <label><input type="radio" name="q21After" value="c2">
+              {{q21_correct}}
+            </label><br />
+            <label><input type="radio" name="q21After" value="c3">
+              {{q21_incorrect2}}
+            </label><br />
+            <label><input type="radio" name="q21After" value="c4">
+              {{q21_incorrect3}}
+            </label><br />
+
+            <h6>22. What best describes the cause of this driving event?</h6>
+
+          <label><input type="radio" name="q24After" value="c1">
+            {{q24_incorrect1}}
+          </label><br />
+          <label><input type="radio" name="q24After" value="c2">
+            {{q24_correct}}
+          </label><br />
+          <label><input type="radio" name="q24After" value="c3">
+            {{q24_incorrect2}}
+          </label><br />
+          <label><input type="radio" name="q24After" value="c4">
+            {{q24_incorrect3}}
+          </label><br />
+          
+
+          <h6>23. What best describes how the autonomous vehicle could have improved in this driving event?</h6>
+
+          <label><input type="radio" name="q23After" value="c1">
+            {{q23_incorrect1}}
+          </label><br />
+          <label><input type="radio" name="q23After" value="c2">
+            {{q23_correct}}
+          </label><br />
+          <label><input type="radio" name="q23After" value="c3">
+            {{q23_incorrect2}}
+          </label><br />
+          <label><input type="radio" name="q23After" value="c4">
+            {{q23_incorrect3}}
+          </label><br />
+            <input type='button' id='submit' class="btn btn-success gap-md-top" value='Submit your answers' v-on:click="logResponse()" style="display: none;"></button>
+          
+            
+          </form>
+          
+        </div>
+
+        <div id='object-container' class='wrapper'>
+         
+        <div id="MessageVidButton">
+          <h4>Imagine you are the passenger of the autonomous vehicle in the below video, sitting inside the vehicle, and looking out the dashboard in this driving scenario. You have no control over the vehicle. You have no control over the vehicle. Please watch the
+            video by clicking on the play button, and when done click on the button "I watched the video" to proceed to the next step.</h4>
+          <div class="my-grid" id="theVidDiv" style="display:'';">
+            
+            <div class="one" id="theone" style="margin-left: -20%; margin-right: -1%;">Front view
+              
+              <div class="wrapper">
+                
+                    <video id= 'instructvid' width="100%" height="100%" controls controlsList="nodownload nofullscreen noremoteplayback noplaybackrate disablePictureInPicture">
+                      <source src="media/subset_videos/Event_ID_29714471_Front.mp4" type="video/mp4" autoplay="1">
+                      
+                    Oh no. This browser doesn't support our video.
+                  </video>
+                <!--</div>-->
+                
+              </div>
+              <input type='button' id='VidWatched' class="btn btn-success gap-md-top" value='I watched the video' v-on:click="wideoWatched()" style="display: ''; margin-top: 2%;margin-left: 15%;"></button>
+            </div>
+          </div>
+              
+          </div>
+          
+
+        </div>
+        
+      </div>
+      <!--<input type='button' id='submit' class="btn btn-success gap-md-top" value='Submit Task' v-on:click="submitTask()"></button>-->
+
+    </div>
+    <!--<div id="page3" class="page" style="visibility:hidden;">-->
+    <div id="page3" class="page" style="display:none;">
+      <h1 style="text-align: center; margin-top: 10%;">Thank you. You can close this page now.</h1>
+    </div>
+
+</body>
+
+</html>
